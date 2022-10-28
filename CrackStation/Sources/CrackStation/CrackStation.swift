@@ -3,9 +3,7 @@ import CryptoKit
 
 @available(macOS 10.15, *)
 public struct CrackStation: Decrypter {
-    public func decrypt(shaHash: String) -> String? {
-        return nil
-    }
+    
     public init() {
         buildDict()
     }
@@ -37,11 +35,11 @@ public struct CrackStation: Decrypter {
             }
         }
     }
-    public func crack(password:String) ->String?{
-        if password.count != 64{
-            return plainTextPasswords [password]
-        }else if password.count == 64{
-            return plainTextPasswords [password]
+    public func decrypt(shaHash: String) -> String? {
+        if shaHash.count == 40 {
+            return plainTextPasswords [shaHash]
+        }else if shaHash.count == 64{
+            return plainTextPasswords [shaHash]
         }
         return nil
     }
