@@ -28,10 +28,6 @@ public struct CrackStation: Decrypter {
         for x in value{
             plainTextPasswords[encryptUsingSha1(x)] = x
             //plainTextPasswords[encryptUsingSha256(x)] = x
-            for y in value{
-                plainTextPasswords[encryptUsingSha1(x+y)] = x+y
-                //plainTextPasswords[encryptUsingSha256(x+y)] = x+y
-            }
         }
     }
     
