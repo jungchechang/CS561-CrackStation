@@ -5,7 +5,7 @@ import CryptoKit
 final class CrackStationTests: XCTestCase {
     
     func testCrackStation() throws{
-        let testString = CrackStation().crack(password: "")
+        let testString = CrackStation().decrypt(shaHash: "")
         XCTAssertEqual(nil,testString)
     }
     
@@ -15,34 +15,34 @@ final class CrackStationTests: XCTestCase {
             let password = String(letter)
             let shaHash = encryptUsingSha1(password)
             // When
-            let crackedPassword = CrackStation().crack(password: shaHash)
+            let crackedPassword = CrackStation().decrypt(shaHash: shaHash)
             // Then
             XCTAssertEqual(crackedPassword, password)
             
         }
     }
     
-    func testAllOneLetterSha256Permutations() throws {
+    /*func testAllOneLetterSha256Permutations() throws {
         for letter in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789" {
             // Given
             let password = String(letter)
             let shaHash = encryptUsingSha256(password)
             // When
-            let crackedPassword = CrackStation().crack(password: shaHash)
+            let crackedPassword = CrackStation().decrypt(shaHash: shaHash)
             // Then
             XCTAssertEqual(crackedPassword, password)
         }
         
-    }
+    }*/
     
     func testAllTneLetterSha1Permutations() throws {
         for letter in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789" {
             for letter2 in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"{
-                
+                // Given
                 let password = String(letter)+String(letter2)
                 let shaHash = encryptUsingSha1(password)
                 // When
-                let crackedPassword = CrackStation().crack(password: shaHash)
+                let crackedPassword = CrackStation().decrypt(shaHash: shaHash)
                 // Then
                 XCTAssertEqual(crackedPassword, password)
                 
@@ -52,14 +52,14 @@ final class CrackStationTests: XCTestCase {
         
     }
     
-    func testAllTwoLetterSha256Permutations() throws {
+   /* func testAllTwoLetterSha256Permutations() throws {
         for letter in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789" {
             for letter2 in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"{
-                
+                // Given
                 let password = String(letter)+String(letter2)
                 let shaHash = encryptUsingSha256(password)
                 // When
-                let crackedPassword = CrackStation().crack(password: shaHash)
+                let crackedPassword = CrackStation().decrypt(shaHash: shaHash)
                 // Then
                 XCTAssertEqual(crackedPassword, password)
                 
@@ -67,7 +67,7 @@ final class CrackStationTests: XCTestCase {
             
         }
         
-    }
+    }*/
     
     private func encryptUsingSha1(_ password: String) -> String {
         let dataToHash = Data(password.utf8)

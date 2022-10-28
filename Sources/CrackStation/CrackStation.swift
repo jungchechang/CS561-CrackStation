@@ -23,24 +23,18 @@ public struct CrackStation: Decrypter {
         return shaHash
     }
 
-
     private mutating func buildDict(){
         let value = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
         for x in value{
             plainTextPasswords[encryptUsingSha1(x)] = x
-            plainTextPasswords[encryptUsingSha256(x)] = x
+            //plainTextPasswords[encryptUsingSha256(x)] = x
             for y in value{
                 plainTextPasswords[encryptUsingSha1(x+y)] = x+y
-                plainTextPasswords[encryptUsingSha256(x+y)] = x+y
+                //plainTextPasswords[encryptUsingSha256(x+y)] = x+y
             }
         }
     }
     public func decrypt(shaHash: String) -> String? {
-        if shaHash.count == 40 {
-            return plainTextPasswords [shaHash]
-        }else if shaHash.count == 64{
-            return plainTextPasswords [shaHash]
-        }
-        return nil
+        return plainTextPasswords[shaHash]
     }
 }
