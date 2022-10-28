@@ -2,27 +2,47 @@ import Foundation
 import CryptoKit
 
 @available(macOS 10.15, *)
-public struct CrackStation {
-    
+public struct CrackStation: Decrypter {
+    public func decrypt(shaHash: String) -> String? {
+        return nil
+    }
     public init() {
-        
+        buildDict()
     }
-    func encryptUsingSha1(from input: String) -> String {
-        let inputData = Data(input.utf8)
-        let output = Insecure.SHA1.hash(data: inputData)
-        return output.description
+    private var plainTextPasswords: [String: String]=[:]
+    private func encryptUsingSha1(_ password: String) -> String {
+        let dataToHash = Data(password.utf8)
+        let prefix = "SHA 1 digest: "
+        let shaHashDescription = String(Insecure.SHA1.hash(data: dataToHash).description)
+        let shaHash = String(shaHashDescription.dropFirst(prefix.count - 1))
+        return shaHash
     }
-    let value = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
-    
-    
-    /// Returns the cracked plain-text password.
-    /// If unable to crack, then returns nil.
-    public func crack(password:String) ->String?{
-        var plainTextPasswords: [String: String]=[:]
-        for i in value{
-            plainTextPasswords[encryptUsingSha1(from: i)] = i
+    private func encryptUsingSha256(_ password: String) -> String {
+        let dataToHash = Data(password.utf8)
+        let prefix = "SHA 256 digest: "
+        let shaHashDescription = String(SHA256.hash(data: dataToHash).description)
+        let shaHash =  String(shaHashDescription.dropFirst(prefix.count - 1))
+        return shaHash
+    }
+
+
+    private mutating func buildDict(){
+        let value = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
+        for x in value{
+            plainTextPasswords[encryptUsingSha1(x)] = x
+            plainTextPasswords[encryptUsingSha256(x)] = x
+            for y in value{
+                plainTextPasswords[encryptUsingSha1(x+y)] = x+y
+                plainTextPasswords[encryptUsingSha256(x+y)] = x+y
+            }
         }
-        let v =  plainTextPasswords["SHA1 digest: \(password)"]
-        return v
+    }
+    public func crack(password:String) ->String?{
+        if password.count != 64{
+            return plainTextPasswords [password]
+        }else if password.count == 64{
+            return plainTextPasswords [password]
+        }
+        return nil
     }
 }
