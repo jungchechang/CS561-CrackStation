@@ -34,6 +34,7 @@ public struct CrackStation: Decrypter {
             }
         }
     }
+    
     public func decrypt(shaHash: String) -> String? {
         return plainTextPasswords[shaHash]
     }
