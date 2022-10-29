@@ -12,4 +12,6 @@ crack station can crack any two-character password.
 
 2.0.0
 
+Public API: CrackStation().decrypt(shaHash: shaHash)
+
 Jung-Che Chang
