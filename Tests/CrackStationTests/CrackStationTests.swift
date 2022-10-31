@@ -35,16 +35,16 @@ final class CrackStationTests: XCTestCase {
         
     }*/
     
-    func testAllTneLetterSha1Permutations() throws {
-                let letter = "12"
-                // Given
-                let password = String(letter)
-                let shaHash = encryptUsingSha1(password)
-                // When
-                let crackedPassword = CrackStation().decrypt(shaHash: shaHash)
-                // Then
-                XCTAssertEqual(crackedPassword, password)
-        
+    func testTwoLetterSha1_99() throws {
+        // Given
+        let password = "99"
+        let shaHash = encryptUsingSha1(password)
+
+        // When
+        let crackedPassword = CrackStation().decrypt(shaHash: shaHash)
+
+        // Then
+        XCTAssertEqual(crackedPassword, password)
     }
     
    /* func testAllTwoLetterSha256Permutations() throws {
