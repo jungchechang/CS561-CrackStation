@@ -1,69 +1,69 @@
-import XCTest
 import CryptoKit
+import XCTest
 @testable import CrackStation
-
 final class CrackStationTests: XCTestCase {
-    
-    func testCrackStation() throws{
-        let testString = CrackStation().decrypt(shaHash: "")
-        XCTAssertEqual(nil,testString)
-    }
-    
+    private let crackStation =  CrackStation()
+
+    // MARK: - Happy path
     func testAllOneLetterSha1Permutations() throws {
         for letter in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789" {
             // Given
             let password = String(letter)
             let shaHash = encryptUsingSha1(password)
+
             // When
-            let crackedPassword = CrackStation().decrypt(shaHash: shaHash)
+            let crackedPassword = crackStation.decrypt(shaHash: shaHash)
+
             // Then
             XCTAssertEqual(crackedPassword, password)
-            
         }
     }
-    
-    /*func testAllOneLetterSha256Permutations() throws {
-        for letter in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789" {
-            // Given
-            let password = String(letter)
-            let shaHash = encryptUsingSha256(password)
-            // When
-            let crackedPassword = CrackStation().decrypt(shaHash: shaHash)
-            // Then
-            XCTAssertEqual(crackedPassword, password)
-        }
-        
-    }*/
-    
-    func testTwoLetterSha1_99() throws {
+
+    func testTwoLetterSha1_aa() throws {
         // Given
-        let password = "99"
+        let password = "aaa"
         let shaHash = encryptUsingSha1(password)
 
         // When
-        let crackedPassword = CrackStation().decrypt(shaHash: shaHash)
+        let crackedPassword = crackStation.decrypt(shaHash: shaHash)
 
         // Then
         XCTAssertEqual(crackedPassword, password)
     }
-    
-   /* func testAllTwoLetterSha256Permutations() throws {
-        for letter in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789" {
-            for letter2 in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"{
-                // Given
-                let password = String(letter)+String(letter2)
-                let shaHash = encryptUsingSha256(password)
-                // When
-                let crackedPassword = CrackStation().decrypt(shaHash: shaHash)
-                // Then
-                XCTAssertEqual(crackedPassword, password)
-                
-            }
-            
-        }
-        
-    }*/
-    
+
+    func testTwoLetterSha1_99() throws {
+        // Given
+        let password = "99!"
+        let shaHash = encryptUsingSha1(password)
+
+        // When
+        let crackedPassword = crackStation.decrypt(shaHash: shaHash)
+
+        // Then
+        XCTAssertEqual(crackedPassword, password)
+    }
+
+    func testTwoLetterSha1_otherCases() throws {
+        // TODO: Write
+    }
+
+    // MARK: - Edge cases / rainy day scenarios
+    func testEmptyString() throws {
+        // Given
+        let password = ""
+        let shaHash = encryptUsingSha1(password)
+
+        // When
+        let crackedPassword = crackStation.decrypt(shaHash: shaHash)
+
+        // Then
+        XCTAssertEqual(crackedPassword, nil)
+    }
+
+    func testInvalidShaHash() throws {
+        // TODO: Write
+    }
+
     private func encryptUsingSha1(_ password: String) -> String {
         let dataToHash = Data(password.utf8)
         let prefix = "SHA 1 digest: "
