@@ -2,7 +2,7 @@ import Foundation
 
 public class CrackStation: Decrypter {
     var lookupTable:[String:String] = [:]
-    required init() {
+    required public init() {
         do{
             lookupTable = try loadDictionaryFromDisk()
         }
