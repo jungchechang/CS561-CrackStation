@@ -1,6 +1,6 @@
 import Foundation
 
-class CrackStation: Decrypter {
+public class CrackStation: Decrypter {
     var lookupTable:[String:String] = [:]
     required init() {
         do{
