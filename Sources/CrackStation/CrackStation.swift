@@ -10,7 +10,7 @@ class CrackStation: Decrypter {
             print("Error")
         }
     }
-    func decrypt(shaHash: String) -> String? {
+    public func decrypt(shaHash: String) -> String? {
         return lookupTable[shaHash]
     }
     func loadDictionaryFromDisk() throws -> [String : String] {
