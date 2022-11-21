@@ -3,7 +3,11 @@ import XCTest
 @testable import CrackStation
 final class CrackStationTests: XCTestCase {
     private let crackStation =  CrackStation()
-
+    
+    func test1() throws {
+        let pass = crackStation.decrypt(shaHash:  "356a192b7913b04c54574d18c28d46e6395428ab")
+        XCTAssertEqual("1", pass)
+    }
     // MARK: - Happy path
     func testAllOneLetterSha1Permutations() throws {
         for letter in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789" {
