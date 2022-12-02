@@ -5,7 +5,7 @@ A decrypter can crack any three-character(including "!?") password.
 This decrypter can crack unsalted hashes, and it uses a large lookup table to find the password.
 
 ## Mission Statement
-This decrypter can make people know that unsalted hashes are unreliable.
+This library helps people know that unsalted Hash is unreliable. People can try to crack unsalted hash passwords which are less than three characters with this library.
 
 ## Installation
 **Swift Package Manager**
