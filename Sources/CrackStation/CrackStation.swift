@@ -14,7 +14,7 @@ public class CrackStation: Decrypter {
     public func decrypt(shaHash: String) -> String? {
         return lookupTable[shaHash]
     }
-   static func loadDictionaryFromDisk() throws -> [String : String] {
+   private static func loadDictionaryFromDisk() throws -> [String : String] {
         guard let path = Bundle.module.url(forResource: "data", withExtension: "json") else { return [:] }
         let data = try Data(contentsOf: path)
         let jsonResult = try JSONSerialization.jsonObject(with: data)
