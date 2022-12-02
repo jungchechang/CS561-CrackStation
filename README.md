@@ -2,7 +2,7 @@
 A decrypter can crack any three-character(including "!?") password.
 
 ## Overview
-This decrypter can crack unsalted hashes, and it uses a large lookup table to find the password.
+This decrypter can crack unsalted hashes passwords of less than three characters, and it uses a large lookup table to find the password.
 
 ## Mission Statement
 This library helps people know that unsalted Hash is unreliable. People can try to crack unsalted hash passwords which are less than three characters with this library.
@@ -15,7 +15,7 @@ The [Swift Package Manager](https://www.swift.org/package-manager/) is "a tool f
 Once you have your Swift package set up, and add CrackStation to the list of dependencies in your in your `Package.swift` file:
 ```
 dependencies: [
-        .package(url: "git@github.com:JungCheChang/CrackStation.git", from: "1.1.6"),
+        .package(url: "git@github.com:JungCheChang/CrackStation.git", from: "1.1.7"),
     ]
 ```
 
@@ -25,14 +25,14 @@ dependencies: [
 ### The API
 `init` will load the .json file for SHA1 and SHA256
 ```
-required public init() {
-    do{
-        lookupTable = try loadDictionaryFromDisk()
+    required public init() {
+        do{
+            lookupTable =  try CrackStation.loadDictionaryFromDisk()
+        }
+        catch{
+            lookupTable = ["":""]
+        }
     }
-    catch{
-        print("Error")
-    }
-}
 ```
 
 `decrypt` The function has one parameter, ShaHash and it will return the password corresponding to the ShaHash.
