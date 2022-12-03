@@ -1,11 +1,11 @@
 # CrackStation, a Decrypter implementation
-A decrypter can crack any three-character(including "!?") password.
+A decrypter can decrypt any three-character(including "!?") password, which uses sha1 or sha256 to encrypt.
 
 ## Overview
-This decrypter can crack unsalted hashes passwords of less than three characters, and it uses a large lookup table to find the password.
+This decrypter can decrypt unsalted hashes passwords of less than three characters, and it uses a large lookup table to find the password.
 
 ## Mission Statement
-This library helps people know that unsalted Hash is unreliable. People can try to crack unsalted hash passwords which are less than three characters with this library.
+This library helps people know that unsalted Hash is unreliable. People can try to decrypt unsalted hash passwords which are less than three characters with this library.
 
 ## Installation
 **Swift Package Manager**
